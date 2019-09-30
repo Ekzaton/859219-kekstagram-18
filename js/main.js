@@ -75,7 +75,7 @@ var getComments = function (number) {
   }
 
   return comments;
-}
+};
 
 // Генерация аватаров ()
 var getAvatars = function () {
