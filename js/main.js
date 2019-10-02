@@ -37,19 +37,12 @@ var getRandomIndex = function (array) {
   return randomIndex;
 };
 
-// Генерация аватаров пользователей
-var getUserAvatars = function () {
-  var userAvatars = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
-
-  return userAvatars;
-};
-
 // Генерация комментариев пользователей
 var getUserComments = function (numberOfComments) {
   var comments = [];
 
   for (var i = 0; i < numberOfComments; i++) {
-    var avatar = getUserAvatars();
+    var avatar = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
     var message = getRandomIndex(COMMENT.messages);
     var name = getRandomIndex(COMMENT.names);
 
@@ -87,7 +80,7 @@ var getPictureData = function (numberOfPictures) {
 };
 
 // Создание фотографии
-var createPicture = function (picture) {
+var createPicturesItem = function (picture) {
   var picturesItem = picturesItemElement.cloneNode(true);
 
   picturesItem.querySelector('.picture__img').src = picture.url;
@@ -102,7 +95,7 @@ var createPicturesList = function (pictureData) {
   var picturesList = document.createDocumentFragment();
 
   for (var i = 0; i < pictureData.length; i++) {
-    picturesList.appendChild(createPicture(pictureData[i]));
+    picturesList.appendChild(createPicturesItem(pictureData[i]));
   }
 
   return picturesList;
