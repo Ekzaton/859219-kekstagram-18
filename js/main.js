@@ -364,11 +364,11 @@ effectLevelPinElement.addEventListener('mousedown', function (evt) {
 
     setPinPosition(position);
     setEffectLevel(
-      Effect[currentEffect].maxValue,
-      Effect[currentEffect].minValue,
-      Effect[currentEffect].cssFilter,
-      Effect[currentEffect].measureUnit,
-      position);
+        Effect[currentEffect].maxValue,
+        Effect[currentEffect].minValue,
+        Effect[currentEffect].cssFilter,
+        Effect[currentEffect].measureUnit,
+        position);
   };
 
   var onMouseUp = function (upEvt) {
