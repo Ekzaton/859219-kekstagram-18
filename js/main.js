@@ -214,7 +214,7 @@ var closeImgUploadOverlay = function () {
 
 // Закрытие формы редактирования изображения по ESC
 var onOverlayEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && evt.target !== textHashtagsElement) {
     closeImgUploadOverlay();
   }
 };
@@ -248,7 +248,7 @@ var setPinPosition = function (pinPosition) {
   effectLevelDepthElement.style.width = pinPosition + 'px';
 };
 
-// Установка уровня эффекта
+// Установка глубины эффекта
 var setEffectLevel = function (maxValue, minValue, cssFilter, measureUnit, pinPosition) {
   var unit = measureUnit || '';
   var value = (maxValue - minValue) * (pinPosition / PinPosition.MAX) + minValue;
