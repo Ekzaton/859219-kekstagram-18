@@ -21,7 +21,7 @@ var NUMBER_OF_PICTURES = 25;
 
 var ESC_KEYCODE = 27;
 
-var ImageScale = {
+var ImgScale = {
   MIN: 25,
   MAX: 100,
   STEP: 25
@@ -71,20 +71,20 @@ var Effect = {
 };
 
 var Hashtag = {
-  START_SYMBOL: 0,
+  START_POSITION: 0,
   MIN_LENGTH: 2,
   MAX_LENGTH: 20,
-  SEPARATOR: 1,
+  GAP: 1,
   MAX_COUNT: 5
 };
 
 var Message = {
-  START_SYMBOL: 'Хэш-теги начинаются с символа #',
+  START_POSITION: 'Хэш-теги начинаются с символа #',
   MIN_LENGTH: 'Хеш-теги не могут состоять только из одной решётки',
   MAX_LENGTH: 'Максимальная длина одного хэш-тега - ',
   MAX_LENGTH_ENDING: ' символов, включая решётку',
   NO_REPEAT: 'Один и тот же хэш-тег не может быть использован дважды',
-  SEPARATOR: 'Хэш-теги разделяются пробелами',
+  GAP: 'Хэш-теги разделяются пробелами',
   MAX_COUNT: 'Нельзя указать больше ',
   MAX_COUNT_ENDING: ' хэш-тегов'
 };
@@ -214,8 +214,15 @@ var closeImgUploadOverlay = function () {
 
 // Закрытие формы редактирования изображения по ESC
 var onOverlayEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE && evt.target !== textHashtagsElement) {
+  if (evt.keyCode === ESC_KEYCODE) {
     closeImgUploadOverlay();
+  }
+};
+
+// Запрет закрытия формы по ESC
+var disableEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    evt.stopPropagation();
   }
 };
 
@@ -224,7 +231,7 @@ var getCurrentImgScale = function () {
   return Number(scaleControlValueElement.value.slice(0, -1));
 };
 
-// Изменение текущего размера изображения
+// Изменение размера изображения
 var changeImgScale = function (newScaleValue) {
   scaleControlValueElement.value = newScaleValue + '%';
   imgUploadPreviewElement.style = 'transform: scale(' + (newScaleValue / 100) + ')';
@@ -232,13 +239,13 @@ var changeImgScale = function (newScaleValue) {
 
 // Уменьшение размера изображения
 var downImgScale = function () {
-  var newScaleValue = getCurrentImgScale() - ImageScale.STEP;
+  var newScaleValue = getCurrentImgScale() - ImgScale.STEP;
   changeImgScale(newScaleValue);
 };
 
 // Увеличение размера изображения
 var upImgScale = function () {
-  var newScaleValue = getCurrentImgScale() + ImageScale.STEP;
+  var newScaleValue = getCurrentImgScale() + ImgScale.STEP;
   changeImgScale(newScaleValue);
 };
 
@@ -261,7 +268,7 @@ var setEffectLevel = function (maxValue, minValue, cssFilter, measureUnit, pinPo
 // Сброс эффекта
 var dropEffect = function () {
   setPinPosition(PinPosition.MAX);
-  imgUploadPreviewElement.removeAttribute('style');
+  imgUploadPreviewElement.style.removeProperty('filter');
   imgUploadPreviewElement.classList = 'img-upload__preview';
   imgUploadEffectLevelElement.classList.add('hidden');
 };
@@ -277,8 +284,8 @@ var hideEffectLevelElement = function (currentEffect) {
 
 // Валидация хэш-тега
 var validateHashtag = function (hashtag) {
-  if (hashtag[Hashtag.START_SYMBOL] !== '#') {
-    textHashtagsElement.setCustomValidity(Message.START_SYMBOL);
+  if (hashtag[Hashtag.START_POSITION] !== '#') {
+    textHashtagsElement.setCustomValidity(Message.START_POSITION);
     return false;
   } else if (hashtag.length < Hashtag.MIN_LENGTH) {
     textHashtagsElement.setCustomValidity(Message.MIN_LENGTH);
@@ -286,8 +293,8 @@ var validateHashtag = function (hashtag) {
   } else if (hashtag.length > Hashtag.MAX_LENGTH) {
     textHashtagsElement.setCustomValidity(Message.MAX_LENGTH + Hashtag.MAX_LENGTH + Message.MAX_LENGTH_ENDING);
     return false;
-  } else if (hashtag.indexOf('#', Hashtag.SEPARATOR) > 0) {
-    textHashtagsElement.setCustomValidity(Message.SEPARATOR);
+  } else if (hashtag.indexOf('#', Hashtag.GAP) > 0) {
+    textHashtagsElement.setCustomValidity(Message.GAP);
     return false;
   }
   return true;
@@ -325,19 +332,20 @@ var onSubmitClick = function (evt) {
 // Валидация хэш-тегов при их вводе
 var onHashtagsInput = function () {
   textHashtagsElement.setCustomValidity('');
+  textHashtagsElement.addEventListener('keydown', disableEscPress);
 };
 
 // Обработчики событий DOM
 imgUploadInputElement.addEventListener('change', openImgUploadOverlay);
 
 scaleControlSmallerElement.addEventListener('click', function () {
-  if (getCurrentImgScale() > ImageScale.MIN) {
+  if (getCurrentImgScale() > ImgScale.MIN) {
     downImgScale();
   }
 });
 
 scaleControlBiggerElement.addEventListener('click', function () {
-  if (getCurrentImgScale() < ImageScale.MAX) {
+  if (getCurrentImgScale() < ImgScale.MAX) {
     upImgScale();
   }
 });
