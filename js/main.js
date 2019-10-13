@@ -332,7 +332,6 @@ var onSubmitClick = function (evt) {
 // Валидация хэш-тегов при их вводе
 var onHashtagsInput = function () {
   textHashtagsElement.setCustomValidity('');
-  textHashtagsElement.addEventListener('keydown', disableEscPress);
 };
 
 // Обработчики событий DOM
@@ -403,6 +402,7 @@ effectsListElement.addEventListener('click', function (evt) {
 imgUploadSubmitElement.addEventListener('click', onSubmitClick);
 
 textHashtagsElement.addEventListener('input', onHashtagsInput);
+textHashtagsElement.addEventListener('keydown', disableEscPress);
 
 // Старт программы
 renderPictures(NUMBER_OF_PICTURES);
