@@ -19,8 +19,8 @@
   };
 
   // Отрисовка списка фотографий
-  var renderPictures = function (numberOfComments) {
-    picturesListElement.appendChild(createPicturesList(window.data.getPictureData(numberOfComments)));
+  var renderPictures = function (numberOfPictures) {
+    picturesListElement.appendChild(createPicturesList(window.data.getPicture(numberOfPictures)));
   };
 
   renderPictures(NUMBER_OF_PICTURES);

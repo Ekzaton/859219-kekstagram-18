@@ -55,26 +55,30 @@
     return comments;
   };
 
-  window.data = {
-    // Генерация данных для фотографий
-    getPictureData: function (numberOfPictures) {
-      var pictureData = [];
 
-      for (var i = 0; i < numberOfPictures; i++) {
-        var url = 'photos/' + (i + 1) + '.jpg';
-        var likes = window.util.getRandomNumber(Like.MIN_COUNT, Like.MAX_COUNT);
-        var comments = getUserComments(window.util.getRandomNumber(Comment.MIN_COUNT, Comment.MAX_COUNT));
+  // Генерация данных для фотографий
+  var getPicture = function (numberOfPictures) {
+    var pictureData = [];
 
-        var newPicture = {
-          url: url,
-          likes: likes,
-          comments: comments
-        };
+    for (var i = 0; i < numberOfPictures; i++) {
+      var url = 'photos/' + (i + 1) + '.jpg';
+      var likes = window.util.getRandomNumber(Like.MIN_COUNT, Like.MAX_COUNT);
+      var comments = getUserComments(window.util.getRandomNumber(Comment.MIN_COUNT, Comment.MAX_COUNT));
 
-        pictureData.push(newPicture);
-      }
+      var newPicture = {
+        url: url,
+        likes: likes,
+        comments: comments
+      };
 
-      return pictureData;
+      pictureData.push(newPicture);
     }
+
+    return pictureData;
+  };
+
+  // Экспорт
+  window.data = {
+    getPicture: getPicture
   };
 })();
