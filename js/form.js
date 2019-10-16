@@ -275,11 +275,11 @@
   });
 
   effectsListElement.addEventListener('click', function (evt) {
-    var currentEffect = document.querySelector('input[type="radio"]:checked').value;
+    var currentEffect = evt.target.closest('input');
 
     if (currentEffect) {
       dropEffect();
-      imgUploadPreviewElement.classList.add(Effect[currentEffect].HTML_CLASS);
+      imgUploadPreviewElement.classList.add(Effect[currentEffect.value].HTML_CLASS);
       hideEffectLevelElement(currentEffect);
     }
   });
