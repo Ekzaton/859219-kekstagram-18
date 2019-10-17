@@ -14,40 +14,40 @@
   };
 
   var Effect = {
-    none: {
-      HTML_CLASS: 'effects__preview--none'
+    NONE: {
+      htmlClass: 'effects__preview--none'
     },
-    chrome: {
-      HTML_CLASS: 'effects__preview--chrome',
-      CSS_FILTER: 'grayscale',
-      MIN_VALUE: 0,
-      MAX_VALUE: 1
+    CHROME: {
+      htmlClass: 'effects__preview--chrome',
+      cssFilter: 'grayscale',
+      minValue: 0,
+      maxValue: 1
     },
-    sepia: {
-      HTML_CLASS: 'effects__preview--sepia',
-      CSS_FILTER: 'sepia',
-      MIN_VALUE: 0,
-      MAX_VALUE: 1
+    SEPIA: {
+      htmlClass: 'effects__preview--sepia',
+      cssFilter: 'sepia',
+      minValue: 0,
+      maxValue: 1
     },
-    marvin: {
-      HTML_CLASS: 'effects__preview--marvin',
-      CSS_FILTER: 'invert',
-      MIN_VALUE: 0,
-      MAX_VALUE: 100,
-      MEASURE_UNIT: '%'
+    MARVIN: {
+      htmlClass: 'effects__preview--marvin',
+      cssFilter: 'invert',
+      minValue: 0,
+      maxValue: 100,
+      measureUnit: '%'
     },
-    phobos: {
-      HTML_CLASS: 'effects__preview--phobos',
-      CSS_FILTER: 'blur',
-      MIN_VALUE: 0,
-      MAX_VALUE: 3,
-      MEASURE_UNIT: 'px'
+    PHOBOS: {
+      htmlClass: 'effects__preview--phobos',
+      cssFilter: 'blur',
+      minValue: 0,
+      maxValue: 3,
+      measureUnit: 'px'
     },
-    heat: {
-      HTML_CLASS: 'effects__preview--heat',
-      CSS_FILTER: 'brightness',
-      MIN_VALUE: 1,
-      MAX_VALUE: 3
+    HEAT: {
+      htmlClass: 'effects__preview--heat',
+      cssFilter: 'brightness',
+      minValue: 1,
+      maxValue: 3
     }
   };
 
@@ -256,10 +256,10 @@
 
       setPinPosition(position);
       setEffectLevel(
-          Effect[currentEffect].MAX_VALUE,
-          Effect[currentEffect].MIN_VALUE,
-          Effect[currentEffect].CSS_FILTER,
-          Effect[currentEffect].MEASURE_UNIT,
+          Effect[currentEffect].minValue,
+          Effect[currentEffect].maxValue,
+          Effect[currentEffect].cssFilter,
+          Effect[currentEffect].measureUnit,
           position);
     };
 
@@ -279,7 +279,7 @@
 
     if (currentEffect) {
       dropEffect();
-      imgUploadPreviewElement.classList.add(Effect[currentEffect.value].HTML_CLASS);
+      imgUploadPreviewElement.classList.add(Effect[currentEffect.value.toUpperCase()].htmlClass);
       hideEffectLevelElement(currentEffect);
     }
   });
