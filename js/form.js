@@ -92,21 +92,21 @@
   var imgUploadSubmitElement = imgUploadOverlayElement.querySelector('.img-upload__submit');
 
   // Открытие формы редактирования изображения
-  var openImgUploadOverlay = function () {
+  var onImgUploadInputClick = function () {
     imgUploadOverlayElement.classList.remove('hidden');
-    imgUploadCancelElement.addEventListener('click', closeImgUploadOverlay);
+    imgUploadCancelElement.addEventListener('click', onImgUploadCancelClick);
     document.addEventListener('keydown', function (evt) {
-      window.util.onOverlayEscPress(evt, closeImgUploadOverlay);
+      window.util.onEscPress(evt, onImgUploadCancelClick);
     });
     dropEffect();
   };
 
   // Закрытие формы редактирования изображения
-  var closeImgUploadOverlay = function () {
+  var onImgUploadCancelClick = function () {
     imgUploadOverlayElement.classList.add('hidden');
-    imgUploadCancelElement.removeEventListener('click', closeImgUploadOverlay);
+    imgUploadCancelElement.removeEventListener('click', onImgUploadCancelClick);
     document.removeEventListener('keydown', function (evt) {
-      window.util.onOverlayEscPress(evt, closeImgUploadOverlay);
+      window.util.onEscPress(evt, onImgUploadCancelClick);
     });
     imgUploadFormElement.reset();
   };
@@ -220,7 +220,7 @@
   };
 
   // Обработчики событий DOM
-  imgUploadInputElement.addEventListener('change', openImgUploadOverlay);
+  imgUploadInputElement.addEventListener('change', onImgUploadInputClick);
 
   scaleControlSmallerElement.addEventListener('click', function () {
     if (getCurrentImgScale() > ImgScale.MIN) {
@@ -236,7 +236,7 @@
 
   effectLevelPinElement.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-    var currentEffect = document.querySelector('input[type="radio"]:checked').value;
+    var currentEffect = document.querySelector('input[type="radio"]:checked');
     var start = evt.clientX;
 
     var onMouseMove = function (moveEvt) {
@@ -256,10 +256,10 @@
 
       setPinPosition(position);
       setEffectLevel(
-          Effect[currentEffect].minValue,
-          Effect[currentEffect].maxValue,
-          Effect[currentEffect].cssFilter,
-          Effect[currentEffect].measureUnit,
+          Effect[currentEffect.value.toUpperCase()].minValue,
+          Effect[currentEffect.value.toUpperCase()].maxValue,
+          Effect[currentEffect.value.toUpperCase()].cssFilter,
+          Effect[currentEffect.value.toUpperCase()].measureUnit,
           position);
     };
 
@@ -279,7 +279,9 @@
 
     if (currentEffect) {
       dropEffect();
-      imgUploadPreviewElement.classList.add(Effect[currentEffect.value.toUpperCase()].htmlClass);
+      imgUploadPreviewElement.classList.add(
+          Effect[currentEffect.value.toUpperCase()].htmlClass
+      );
       hideEffectLevelElement(currentEffect);
     }
   });
