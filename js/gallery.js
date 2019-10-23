@@ -1,11 +1,9 @@
 'use strict';
 
 (function () {
-  // Константы
-  var NUMBER_OF_PICTURES = 25;
-
   // Элементы DOM
   var picturesListElement = document.querySelector('.pictures');
+  var errorElement = document.querySelector('#error').content.querySelector('.error');
 
   // Создание списка фотографий
   var createPicturesList = function (pictureData) {
@@ -19,9 +17,20 @@
   };
 
   // Отрисовка списка фотографий
-  var renderPictures = function (numberOfPictures) {
-    picturesListElement.appendChild(createPicturesList(window.data.getPicture(numberOfPictures)));
+  var renderPictures = function () {
+    window.backend.load(onLoadSuccess, onError);
   };
 
-  renderPictures(NUMBER_OF_PICTURES);
+  // Успешная загрузка
+  var onLoadSuccess = function (pictureData) {
+    picturesListElement.appendChild(createPicturesList(pictureData));
+  };
+
+  // Ошибка загрузки
+  var onError = function (errorMessage) {
+    errorElement.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', errorElement);
+  };
+
+  renderPictures();
 })();
