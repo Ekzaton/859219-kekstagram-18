@@ -6,24 +6,21 @@
   var errorElement = document.querySelector('#error').content.querySelector('.error');
 
   // Создание списка фотографий
-  var createPicturesList = function (pictureData) {
+  var createPicturesList =  window.util.debounce(function (pictureData) {
     var picturesList = document.createDocumentFragment();
 
     for (var i = 0; i < pictureData.length; i++) {
       picturesList.appendChild(window.picture.createPicturesItem(pictureData[i]));
     }
 
-    return picturesList;
-  };
-
-  // Отрисовка списка фотографий
-  var renderPictures = function () {
-    window.backend.load(onLoadSuccess, onError);
-  };
+    picturesListElement.appendChild(picturesList);
+  });
 
   // Успешная загрузка
-  var onLoadSuccess = function (pictureData) {
-    picturesListElement.appendChild(createPicturesList(pictureData));
+  var onLoadSuccess = function (data) {
+    var pictureData = data;
+    createPicturesList(data);
+    window.filters.setFilter(data);
   };
 
   // Ошибка загрузки
@@ -32,5 +29,10 @@
     document.body.insertAdjacentElement('afterbegin', errorElement);
   };
 
-  renderPictures();
+  window.backend.load(onLoadSuccess, onError);
+
+  // Экспорт
+  window.gallery = {
+    createPicturesList: createPicturesList,
+  };
 })();

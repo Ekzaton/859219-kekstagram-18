@@ -3,13 +3,13 @@
 (function () {
   // Константы
   var LOAD_URL = 'https://js.dump.academy/kekstagram/data';
-  var TIMEOUT = 10000;
+  var CONNECTION_TIMEOUT = 10000;
   var OK_STATUS = 200;
 
   // Создание запроса
   var makeRequest = function (xhr, onLoad, onError) {
     xhr.responseType = 'json';
-    xhr.timeout = TIMEOUT;
+    xhr.timeout = CONNECTION_TIMEOUT;
 
     xhr.addEventListener('load', function () {
       if (xhr.status === OK_STATUS) {
