@@ -62,7 +62,7 @@
   };
 
   // Установка выбранного фильтра
-  var setFilter = function(pictureData) {
+  var setFilter = function (pictureData) {
     imgFiltersElement.classList.remove('img-filters--inactive');
     filterElements[0].addEventListener('click', function () {
       onFilterClick(filterElements, 0, pictureData);

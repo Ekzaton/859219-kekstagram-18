@@ -14,7 +14,7 @@
     document.addEventListener('keydown', function (evt) {
       window.util.onEscPress(evt, onImgUploadCancelClick);
     });
-     window.effects.dropEffect();
+    window.effects.dropEffect();
   };
 
   // Закрытие формы редактирования изображения

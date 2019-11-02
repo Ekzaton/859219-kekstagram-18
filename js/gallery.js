@@ -6,7 +6,7 @@
   var errorElement = document.querySelector('#error').content.querySelector('.error');
 
   // Создание списка фотографий
-  var createPicturesList =  window.util.debounce(function (pictureData) {
+  var createPicturesList = window.util.debounce(function (pictureData) {
     var picturesList = document.createDocumentFragment();
 
     for (var i = 0; i < pictureData.length; i++) {
@@ -19,8 +19,8 @@
   // Успешная загрузка
   var onLoadSuccess = function (data) {
     var pictureData = data;
-    createPicturesList(data);
-    window.filters.setFilter(data);
+    createPicturesList(pictureData);
+    window.filters.setFilter(pictureData);
   };
 
   // Ошибка загрузки
