@@ -37,7 +37,7 @@
     changeImgScale(newScaleValue);
   };
 
-  // Сброс размера изображекния
+  // Сброс размера изображения
   var dropScale = function () {
     changeImgScale(ImgScale.MAX);
   };
