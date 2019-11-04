@@ -37,6 +37,11 @@
     changeImgScale(newScaleValue);
   };
 
+  // Сброс размера изображекния
+  var dropScale = function () {
+    changeImgScale(ImgScale.MAX);
+  };
+
   // Обработчики событий DOM
   scaleControlSmallerElement.addEventListener('click', function () {
     if (getCurrentImgScale() > ImgScale.MIN) {
@@ -49,4 +54,9 @@
       upImgScale();
     }
   });
+
+  // Экспорт
+  window.scale = {
+    dropScale: dropScale
+  };
 })();
