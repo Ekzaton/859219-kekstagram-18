@@ -13,17 +13,14 @@
       picturesList.appendChild(window.picture.createPicturesItem(pictureData[i]));
     }
 
-    return picturesList;
-  };
-
-  // Отрисовка списка фотографий
-  var renderPictures = function () {
-    window.backend.load(onLoadSuccess, onError);
+    picturesListElement.appendChild(picturesList);
   };
 
   // Успешная загрузка
-  var onLoadSuccess = function (pictureData) {
-    picturesListElement.appendChild(createPicturesList(pictureData));
+  var onLoadSuccess = function (data) {
+    var pictureData = data;
+    createPicturesList(pictureData);
+    window.filters.setFilter(pictureData);
   };
 
   // Ошибка загрузки
@@ -32,5 +29,10 @@
     document.body.insertAdjacentElement('afterbegin', errorElement);
   };
 
-  renderPictures();
+  window.backend.load(onLoadSuccess, onError);
+
+  // Экспорт
+  window.gallery = {
+    createPicturesList: createPicturesList,
+  };
 })();
