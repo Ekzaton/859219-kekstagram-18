@@ -8,7 +8,7 @@
   var imgUploadInputElement = document.querySelector('.img-upload__input');
   var imgUploadPreviewImgElement = document.querySelector('.img-upload__preview img');
 
-  // Загрузка изображения
+  // Загрузка фотографии
   var uploadPicture = function () {
     var file = imgUploadInputElement.files[0];
     var fileName = file.name.toLowerCase();
