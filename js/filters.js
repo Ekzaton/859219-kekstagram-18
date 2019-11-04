@@ -51,18 +51,18 @@
   // Установка выбранного фильтра
   var setFilter = function (pictureData) {
     imgFiltersElement.classList.remove('img-filters--inactive');
-    filterPopularElement.addEventListener('click', function () {
+    filterPopularElement.addEventListener('click', window.util.debounce(function () {
       onFilterClick(filterPopularElement);
       window.gallery.createPicturesList(pictureData);
-    });
-    filterRandomElement.addEventListener('click', function () {
+    }));
+    filterRandomElement.addEventListener('click', window.util.debounce(function () {
       onFilterClick(filterRandomElement);
       window.gallery.createPicturesList(selectRandomPictures(pictureData));
-    });
-    filterDiscussedElement.addEventListener('click', function () {
+    }));
+    filterDiscussedElement.addEventListener('click', window.util.debounce(function () {
       onFilterClick(filterDiscussedElement);
       window.gallery.createPicturesList(selectDiscussedPictures(pictureData));
-    });
+    }));
   };
 
   // Экспорт
