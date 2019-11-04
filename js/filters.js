@@ -9,69 +9,59 @@
   var filterPopularElement = document.querySelector('#filter-popular');
   var filterRandomElement = document.querySelector('#filter-random');
   var filterDiscussedElement = document.querySelector('#filter-discussed');
-  var filterElements = [filterPopularElement, filterRandomElement, filterDiscussedElement];
 
   // Сброс списка фотографий
-  var dropPicturesList = window.util.debounce(function () {
-    var allPictures = document.querySelectorAll('.picture');
-    if (allPictures.length > 0) {
-      for (var i = 0; i < allPictures.length; i++) {
-        allPictures[i].remove();
-      }
-    }
-  });
+  var dropPicturesList = function () {
+    var pictures = document.querySelectorAll('.picture');
 
-  // Отбор фотографий по фильтру
-  var filterPictures = function (pictureData) {
-    if (filterElements[0].classList.contains('img-filters__button--active')) {
-      return pictureData;
-    }
-
-    if (filterElements[1].classList.contains('img-filters__button--active')) {
-      var numberOfPictures = RANDOM_PICTURES;
-      var randomPictures = window.util.getRandomShuffleArray(pictureData.slice()).slice(0, numberOfPictures);
-      return randomPictures;
-    }
-
-    if (filterElements[2].classList.contains('img-filters__button--active')) {
-      var discussedPictures = pictureData.slice().sort(function (firstPicture, secondPicture) {
-        if (firstPicture.comments.length < secondPicture.comments.length) {
-          return 1;
-        } else if (firstPicture.comments.length > secondPicture.comments.length) {
-          return -1;
-        } else {
-          return 0;
-        }
+    if (pictures.length > 0) {
+      pictures.forEach(function (picture) {
+        picture.remove();
       });
-      return discussedPictures;
     }
+  };
 
-    return pictureData;
+  // Отбор случайных фотографий
+  var selectRandomPictures = function (pictureData) {
+    var numberOfPictures = RANDOM_PICTURES;
+    var randomPictures = window.util.getRandomShuffleArray(pictureData.slice()).slice(0, numberOfPictures);
+    return randomPictures;
+  };
+
+  // Отбор обсуждаемых фотографий
+  var selectDiscussedPictures = function (pictureData) {
+    var discussedPictures = pictureData.slice().sort(function (firstPicture, secondPicture) {
+      return (firstPicture.comments.length < secondPicture.comments.length) ? 1 : -1;
+    });
+    return discussedPictures;
   };
 
   // Выбор фильтра изображений
-  var onFilterClick = function (filters, newFilterIndex, pictureData) {
-    for (var i = 0; i < filters.length; i++) {
-      if (filters[i].classList.contains('img-filters__button--active')) {
-        filters[i].classList.remove('img-filters__button--active');
-      }
-    }
-    filterElements[newFilterIndex].classList.add('img-filters__button--active');
+  var onFilterClick = function (selectedFilter) {
+    var filters = document.querySelectorAll('.img-filters__button');
+
+    filters.forEach(function (filter) {
+      filter.classList.remove('img-filters__button--active');
+    });
+
     dropPicturesList();
-    window.gallery.createPicturesList(filterPictures(pictureData));
+    selectedFilter.classList.add('img-filters__button--active');
   };
 
   // Установка выбранного фильтра
   var setFilter = function (pictureData) {
     imgFiltersElement.classList.remove('img-filters--inactive');
-    filterElements[0].addEventListener('click', function () {
-      onFilterClick(filterElements, 0, pictureData);
+    filterPopularElement.addEventListener('click', function () {
+      onFilterClick(filterPopularElement);
+      window.gallery.createPicturesList(pictureData);
     });
-    filterElements[1].addEventListener('click', function () {
-      onFilterClick(filterElements, 1, pictureData);
+    filterRandomElement.addEventListener('click', function () {
+      onFilterClick(filterRandomElement);
+      window.gallery.createPicturesList(selectRandomPictures(pictureData));
     });
-    filterElements[2].addEventListener('click', function () {
-      onFilterClick(filterElements, 2, pictureData);
+    filterDiscussedElement.addEventListener('click', function () {
+      onFilterClick(filterDiscussedElement);
+      window.gallery.createPicturesList(selectDiscussedPictures(pictureData));
     });
   };
 
