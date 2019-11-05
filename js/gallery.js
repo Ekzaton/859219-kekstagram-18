@@ -2,37 +2,37 @@
 
 (function () {
   // Элементы DOM
+  var picturesItemElement = document.querySelector('#picture').content.querySelector('.picture');
   var picturesListElement = document.querySelector('.pictures');
-  var errorElement = document.querySelector('#error').content.querySelector('.error');
+
+  // Создание фотографии
+  var createPicturesItem = function (picture) {
+    var picturesItem = picturesItemElement.cloneNode(true);
+
+    picturesItem.querySelector('.picture__img').src = picture.url;
+    picturesItem.querySelector('.picture__likes').textContent = picture.likes;
+    picturesItem.querySelector('.picture__comments').textContent = picture.comments.length;
+
+    picturesItem.addEventListener('click', function () {
+      window.picture.onPicturesItemClick(picture);
+    });
+
+    return picturesItem;
+  };
 
   // Создание списка фотографий
-  var createPicturesList = function (pictureData) {
+  var createPicturesList = function (pictures) {
     var picturesList = document.createDocumentFragment();
 
-    for (var i = 0; i < pictureData.length; i++) {
-      picturesList.appendChild(window.picture.createPicturesItem(pictureData[i]));
+    for (var i = 0; i < pictures.length; i++) {
+      picturesList.appendChild(createPicturesItem(pictures[i]));
     }
 
     picturesListElement.appendChild(picturesList);
   };
 
-  // Успешная загрузка
-  var onLoadSuccess = function (data) {
-    var pictureData = data;
-    createPicturesList(pictureData);
-    window.filters.setFilter(pictureData);
-  };
-
-  // Ошибка загрузки
-  var onError = function (errorMessage) {
-    errorElement.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', errorElement);
-  };
-
-  window.backend.load(onLoadSuccess, onError);
-
   // Экспорт
   window.gallery = {
-    createPicturesList: createPicturesList,
+    createPicturesList: createPicturesList
   };
 })();

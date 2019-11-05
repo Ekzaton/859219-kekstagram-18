@@ -2,21 +2,41 @@
 
 (function () {
   // Элементы DOM
-  var picturesItemElement = document.querySelector('#picture').content.querySelector('.picture');
+  var bigPictureElement = document.querySelector('.big-picture');
+  var bigPictureCancelElement = document.querySelector('.big-picture__cancel');
 
-  // Создание фотографии
-  var createPicturesItem = function (picture) {
-    var picturesItem = picturesItemElement.cloneNode(true);
+  // Показать увеличенную фотографию
+  var onPicturesItemClick = function (picture) {
+    bigPictureElement.classList.remove('hidden');
 
-    picturesItem.querySelector('.picture__img').src = picture.url;
-    picturesItem.querySelector('.picture__likes').textContent = picture.likes;
-    picturesItem.querySelector('.picture__comments').textContent = picture.comments.length;
+    bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
+    bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
+    bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
+    bigPictureElement.querySelector('.social__caption').textContent = picture.description;
 
-    return picturesItem;
+    window.comments.createSocialCommentstList(picture.comments);
+
+    bigPictureElement.querySelector('.social__comment-count').classList.add('visually-hidden');
+    bigPictureElement.querySelector('.social__comments-loader').classList.add('visually-hidden');
+
+    bigPictureCancelElement.addEventListener('click', onBigPictureCancelClick);
+    document.addEventListener('keydown', function (evt) {
+      window.util.onEscPress(evt, onBigPictureCancelClick);
+    });
+  };
+
+  // Скрыть увеличенную фотографию
+  var onBigPictureCancelClick = function () {
+    bigPictureElement.classList.add('hidden');
+
+    bigPictureCancelElement.removeEventListener('click', onBigPictureCancelClick);
+    document.removeEventListener('keydown', function (evt) {
+      window.util.onEscPress(evt, onBigPictureCancelClick);
+    });
   };
 
   // Экспорт
   window.picture = {
-    createPicturesItem: createPicturesItem
+    onPicturesItemClick: onPicturesItemClick
   };
 })();
