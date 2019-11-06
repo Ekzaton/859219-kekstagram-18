@@ -23,7 +23,6 @@
   // Создание списка фотографий
   var createPicturesList = function (pictures) {
     var picturesList = document.createDocumentFragment();
-    
     pictures.forEach(function (picture) {
       picturesList.appendChild(getPicturesItem(picture));
     });
