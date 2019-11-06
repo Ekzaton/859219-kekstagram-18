@@ -45,7 +45,7 @@
   };
 
   // Публикация изображения по клику с валидацией хэш-тегов
-  var onSubmitClick = function (evt) {
+  var onSubmitClick = function () {
     if (textHashtagsElement.value !== '') {
       var hashtags = textHashtagsElement.value.toLowerCase().split(' ');
 
