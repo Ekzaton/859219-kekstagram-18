@@ -5,8 +5,8 @@
   var socialCommentsItemElement = document.querySelector('.social__comment');
   var socialCommentsListElement = document.querySelector('.social__comments');
 
-  // Создание комментария
-  var createSocialCommentsItem = function (comment) {
+  // Получение комментария
+  var getSocialCommentsItem = function (comment) {
     var socialCommentsItem = socialCommentsItemElement.cloneNode(true);
 
     socialCommentsItem.querySelector('.social__picture').src = comment.avatar;
@@ -19,10 +19,10 @@
   // Создание списка комментариев
   var createSocialCommentsList = function (comments) {
     var socialCommentsList = document.createDocumentFragment();
-
-    for (var i = 0; i < comments.length; i++) {
-      socialCommentsList.appendChild(createSocialCommentsItem(comments[i]));
-    }
+    
+    comments.forEach(function (comment) {
+      socialCommentsList.appendChild(getSocialCommentsItem(comment));
+    });
 
     socialCommentsListElement.innerHTML = '';
     socialCommentsListElement.appendChild(socialCommentsList);
