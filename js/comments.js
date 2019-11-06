@@ -19,7 +19,6 @@
   // Создание списка комментариев
   var createSocialCommentsList = function (comments) {
     var socialCommentsList = document.createDocumentFragment();
-    
     comments.forEach(function (comment) {
       socialCommentsList.appendChild(getSocialCommentsItem(comment));
     });
