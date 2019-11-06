@@ -5,8 +5,8 @@
   var picturesItemElement = document.querySelector('#picture').content.querySelector('.picture');
   var picturesListElement = document.querySelector('.pictures');
 
-  // Создание фотографии
-  var createPicturesItem = function (picture) {
+  // Получение фотографии
+  var getPicturesItem = function (picture) {
     var picturesItem = picturesItemElement.cloneNode(true);
 
     picturesItem.querySelector('.picture__img').src = picture.url;
@@ -23,10 +23,10 @@
   // Создание списка фотографий
   var createPicturesList = function (pictures) {
     var picturesList = document.createDocumentFragment();
-
-    for (var i = 0; i < pictures.length; i++) {
-      picturesList.appendChild(createPicturesItem(pictures[i]));
-    }
+    
+    pictures.forEach(function (picture) {
+      picturesList.appendChild(getPicturesItem(picture));
+    });
 
     picturesListElement.appendChild(picturesList);
   };
