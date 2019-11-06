@@ -14,7 +14,7 @@
     bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
     bigPictureElement.querySelector('.social__caption').textContent = picture.description;
 
-    window.comments.createSocialCommentstList(picture.comments);
+    window.comments.createSocialCommentsList(picture.comments);
 
     bigPictureElement.querySelector('.social__comment-count').classList.add('visually-hidden');
     bigPictureElement.querySelector('.social__comments-loader').classList.add('visually-hidden');
