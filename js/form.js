@@ -15,7 +15,7 @@
       window.util.onEscPress(evt, onImgUploadCancelClick);
     });
     window.effects.dropEffect();
-    window.scale.dropScale();
+    window.scale.dropImgScale();
   };
 
   // Закрытие формы редактирования изображения
