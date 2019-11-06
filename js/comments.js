@@ -17,7 +17,7 @@
   };
 
   // Создание списка комментариев
-  var createSocialCommentstList = function (comments) {
+  var createSocialCommentsList = function (comments) {
     var socialCommentsList = document.createDocumentFragment();
 
     for (var i = 0; i < comments.length; i++) {
@@ -30,6 +30,6 @@
 
   // Экспорт
   window.comments = {
-    createSocialCommentstList: createSocialCommentstList
+    createSocialCommentsList: createSocialCommentsList
   };
 })();
