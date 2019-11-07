@@ -148,7 +148,7 @@
 
   // Обработчики событий DOM
   effectsListElement.addEventListener('click', function (evt) {
-    onEffectsListClick(evt)
+    onEffectsListClick(evt);
   });
 
   effectLevelPinElement.addEventListener('mousedown', function (evt) {
