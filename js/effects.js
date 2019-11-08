@@ -45,6 +45,9 @@
     }
   };
 
+  // Глобальные переменные
+  var start;
+
   // Элементы DOM
   var imgUploadPreviewElement = document.querySelector('.img-upload__preview');
   var imgUploadEffectLevelElement = document.querySelector('.img-upload__effect-level');
@@ -86,48 +89,8 @@
     }
   };
 
-  // Обработчики событий DOM
-  effectLevelPinElement.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
-    var currentEffect = document.querySelector('input[type="radio"]:checked');
-    var start = evt.clientX;
-
-    var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-
-      var translation = start - moveEvt.clientX;
-      var position = effectLevelPinElement.offsetLeft - translation;
-      start = moveEvt.clientX;
-
-      if (position <= PinPosition.MIN) {
-        position = PinPosition.MIN;
-      }
-
-      if (position > PinPosition.MAX) {
-        position = PinPosition.MAX;
-      }
-
-      setPinPosition(position);
-      setEffectLevel(
-          Effect[currentEffect.value.toUpperCase()].maxValue,
-          Effect[currentEffect.value.toUpperCase()].minValue,
-          Effect[currentEffect.value.toUpperCase()].cssFilter,
-          Effect[currentEffect.value.toUpperCase()].measureUnit,
-          position);
-    };
-
-    var onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  });
-
-  effectsListElement.addEventListener('click', function (evt) {
+  // Выбор эффекта
+  var onEffectsListClick = function (evt) {
     var currentEffect = evt.target.closest('input');
 
     if (currentEffect) {
@@ -137,6 +100,59 @@
       );
       hideEffectLevelElement(currentEffect);
     }
+  };
+
+  // Нажатие мыши
+  var onMouseDown = function (evt) {
+    evt.preventDefault();
+
+    start = evt.clientX;
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
+
+  // Движение мыши
+  var onMouseMove = function (evt) {
+    evt.preventDefault();
+
+    var currentEffect = document.querySelector('input[type="radio"]:checked');
+    var translation = start - evt.clientX;
+    var position = effectLevelPinElement.offsetLeft - translation;
+    start = evt.clientX;
+
+    if (position <= PinPosition.MIN) {
+      position = PinPosition.MIN;
+    }
+
+    if (position > PinPosition.MAX) {
+      position = PinPosition.MAX;
+    }
+
+    setPinPosition(position);
+    setEffectLevel(
+        Effect[currentEffect.value.toUpperCase()].maxValue,
+        Effect[currentEffect.value.toUpperCase()].minValue,
+        Effect[currentEffect.value.toUpperCase()].cssFilter,
+        Effect[currentEffect.value.toUpperCase()].measureUnit,
+        position);
+  };
+
+  // Отпускание мыши
+  var onMouseUp = function (evt) {
+    evt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  // Обработчики событий DOM
+  effectsListElement.addEventListener('click', function (evt) {
+    onEffectsListClick(evt);
+  });
+
+  effectLevelPinElement.addEventListener('mousedown', function (evt) {
+    onMouseDown(evt);
   });
 
   // Экспорт
