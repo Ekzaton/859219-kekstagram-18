@@ -3,7 +3,7 @@
 (function () {
   // Константы
   var Url = {
-    LOAD: 'https://js.dump.academy/kekstagram/data1',
+    LOAD: 'https://js.dump.academy/kekstagram/data',
     SAVE: 'https://js.dump.academy/kekstagram'
   };
 
