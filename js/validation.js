@@ -23,8 +23,6 @@
 
   // Элементы DOM
   var textHashtagsElement = document.querySelector('.text__hashtags');
-  var textDescriptionElement = document.querySelector('.text__description');
-  var imgUploadSubmitElement = document.querySelector('.img-upload__submit');
 
   // Валидация хэш-тега
   var validateHashtag = function (hashtag) {
@@ -44,8 +42,10 @@
     return true;
   };
 
-  // Публикация изображения по клику с валидацией хэш-тегов
-  var onSubmitClick = function () {
+  // Валидация хэш-тегов при их вводе
+  var onHashtagsInput = function () {
+    textHashtagsElement.setCustomValidity('');
+
     if (textHashtagsElement.value !== '') {
       var hashtags = textHashtagsElement.value.toLowerCase().split(' ');
 
@@ -69,14 +69,6 @@
     }
   };
 
-  // Валидация хэш-тегов при их вводе
-  var onHashtagsInput = function () {
-    textHashtagsElement.setCustomValidity('');
-  };
-
   // Обработчики событий DOM
-  imgUploadSubmitElement.addEventListener('click', onSubmitClick);
   textHashtagsElement.addEventListener('input', onHashtagsInput);
-  textHashtagsElement.addEventListener('keydown', window.util.disableEscPress);
-  textDescriptionElement.addEventListener('keydown', window.util.disableEscPress);
 })();
