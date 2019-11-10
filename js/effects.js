@@ -135,7 +135,8 @@
         Effect[currentEffect.value.toUpperCase()].minValue,
         Effect[currentEffect.value.toUpperCase()].cssFilter,
         Effect[currentEffect.value.toUpperCase()].measureUnit,
-        position);
+        position
+    );
   };
 
   // Отпускание мыши
