@@ -17,7 +17,7 @@
     window.comments.createSocialCommentsList(picture.comments);
 
     bigPictureElement.querySelector('.social__comment-count').classList.add('visually-hidden');
-    bigPictureElement.querySelector('.social__comments-loader').classList.add('visually-hidden');
+    //bigPictureElement.querySelector('.social__comments-loader').classList.add('visually-hidden');
 
     bigPictureCancelElement.addEventListener('click', onBigPictureCancelClick);
     document.addEventListener('keydown', function (evt) {
