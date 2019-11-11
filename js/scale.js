@@ -2,7 +2,7 @@
 
 (function () {
   // Константы
-  var ImgScale = {
+  var ImageScale = {
     MIN: 25,
     MAX: 100,
     STEP: 25
@@ -15,49 +15,49 @@
   var scaleControlBiggerElement = document.querySelector('.scale__control--bigger');
 
   // Получение текущего размера изображения
-  var getCurrentImgScale = function () {
+  var getCurrentImageScale = function () {
     return Number(scaleControlValueElement.value.slice(0, -1));
   };
 
   // Изменение размера изображения
-  var changeImgScale = function (newScaleValue) {
+  var changeImageScale = function (newScaleValue) {
     scaleControlValueElement.value = newScaleValue + '%';
     imgUploadPreviewElement.style = 'transform: scale(' + (newScaleValue / 100) + ')';
     window.effects.dropEffect();
   };
 
   // Уменьшение размера изображения
-  var downImgScale = function () {
-    var newScaleValue = getCurrentImgScale() - ImgScale.STEP;
-    changeImgScale(newScaleValue);
+  var downImageScale = function () {
+    var newScaleValue = getCurrentImageScale() - ImageScale.STEP;
+    changeImageScale(newScaleValue);
   };
 
   // Увеличение размера изображения
-  var upImgScale = function () {
-    var newScaleValue = getCurrentImgScale() + ImgScale.STEP;
-    changeImgScale(newScaleValue);
+  var upImageScale = function () {
+    var newScaleValue = getCurrentImageScale() + ImageScale.STEP;
+    changeImageScale(newScaleValue);
   };
 
   // Сброс размера изображения
-  var dropImgScale = function () {
-    changeImgScale(ImgScale.MAX);
+  var dropImageScale = function () {
+    changeImageScale(ImageScale.MAX);
   };
 
   // Обработчики событий DOM
   scaleControlSmallerElement.addEventListener('click', function () {
-    if (getCurrentImgScale() > ImgScale.MIN) {
-      downImgScale();
+    if (getCurrentImageScale() > ImageScale.MIN) {
+      downImageScale();
     }
   });
 
   scaleControlBiggerElement.addEventListener('click', function () {
-    if (getCurrentImgScale() < ImgScale.MAX) {
-      upImgScale();
+    if (getCurrentImageScale() < ImageScale.MAX) {
+      upImageScale();
     }
   });
 
   // Экспорт
   window.scale = {
-    dropImgScale: dropImgScale
+    dropImageScale: dropImageScale
   };
 })();
