@@ -14,7 +14,7 @@
   var onImgUploadInputClick = function () {
     imgUploadOverlayElement.classList.remove('hidden');
     window.effects.dropEffect();
-    window.scale.dropImgScale();
+    window.scale.dropImageScale();
 
     imgUploadCancelElement.addEventListener('click', onImgUploadCancelClick);
     document.addEventListener('keydown', function (evt) {
@@ -38,17 +38,19 @@
     if (textHashtagsElement.validity.valid) {
       evt.preventDefault();
       window.backend.save(new FormData(imgUploadFormElement), onSaveSuccess, onSaveError);
-      onImgUploadCancelClick();
     }
   };
 
   // Успешная отправка
   var onSaveSuccess = function () {
+    imgUploadOverlayElement.classList.add('hidden');
+    imgUploadFormElement.reset();
     window.messages.showSuccessMessage();
   };
 
   // Ошибка отправки
   var onSaveError = function () {
+    imgUploadOverlayElement.classList.add('hidden');
     window.messages.showErrorMessage();
   };
 

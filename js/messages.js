@@ -2,7 +2,7 @@
 
 (function () {
   // Элементы DOM
-  var main = document.querySelector('main');
+  var mainElement = document.querySelector('main');
 
   var successElement = document.querySelector('#success').content.querySelector('.success');
   var successMessageElement = successElement.cloneNode(true);
@@ -15,7 +15,7 @@
 
   // Показать окно сообщения об успехе
   var showSuccessMessage = function () {
-    main.insertAdjacentElement('afterbegin', successMessageElement);
+    mainElement.insertAdjacentElement('afterbegin', successMessageElement);
 
     successMessageElement.addEventListener('click', onSuccessMessageClick);
     successButtonElement.addEventListener('click', onSuccessButtonClick);
@@ -45,7 +45,7 @@
 
   // Показать окно сообщения об ошибке
   var showErrorMessage = function () {
-    main.insertAdjacentElement('afterbegin', errorMessageElement);
+    mainElement.insertAdjacentElement('afterbegin', errorMessageElement);
 
     errorMessageElement.addEventListener('click', onErrorMessageClick);
     errorButtonsElement.addEventListener('click', onErrorButtonsClick);
@@ -58,7 +58,7 @@
   var showLoadErrorMessage = function (errorMessage) {
     errorTitleElement.textContent = errorMessage;
     errorButtonsElement.innerHTML = '';
-    main.insertAdjacentElement('afterbegin', errorMessageElement);
+    mainElement.insertAdjacentElement('afterbegin', errorMessageElement);
 
     errorMessageElement.addEventListener('click', onErrorMessageClick);
     document.addEventListener('keydown', function (evt) {

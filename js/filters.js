@@ -23,8 +23,7 @@
 
   // Отбор случайных фотографий
   var selectRandomPictures = function (pictureData) {
-    var numberOfPictures = RANDOM_PICTURES;
-    var randomPictures = window.util.getRandomShuffleArray(pictureData.slice()).slice(0, numberOfPictures);
+    var randomPictures = window.util.getRandomShuffleArray(pictureData.slice()).slice(0, RANDOM_PICTURES);
     return randomPictures;
   };
 
