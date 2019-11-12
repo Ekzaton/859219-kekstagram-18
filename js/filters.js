@@ -21,14 +21,14 @@
     }
   };
 
-  // Отбор случайных фотографий
-  var selectRandomPictures = function (pictureData) {
+  // Получение списка случайных фотографий
+  var getRandomPictures = function (pictureData) {
     var randomPictures = window.util.getRandomShuffleArray(pictureData.slice()).slice(0, RANDOM_PICTURES);
     return randomPictures;
   };
 
-  // Отбор обсуждаемых фотографий
-  var selectDiscussedPictures = function (pictureData) {
+  // Получение списка обсуждаемых фотографий
+  var getDiscussedPictures = function (pictureData) {
     var discussedPictures = pictureData.slice().sort(function (firstPicture, secondPicture) {
       return (firstPicture.comments.length < secondPicture.comments.length) ? 1 : -1;
     });
@@ -56,11 +56,11 @@
     }));
     filterRandomElement.addEventListener('click', window.util.debounce(function () {
       onFilterClick(filterRandomElement);
-      window.gallery.createPicturesList(selectRandomPictures(pictureData));
+      window.gallery.createPicturesList(getRandomPictures(pictureData));
     }));
     filterDiscussedElement.addEventListener('click', window.util.debounce(function () {
       onFilterClick(filterDiscussedElement);
-      window.gallery.createPicturesList(selectDiscussedPictures(pictureData));
+      window.gallery.createPicturesList(getDiscussedPictures(pictureData));
     }));
   };
 

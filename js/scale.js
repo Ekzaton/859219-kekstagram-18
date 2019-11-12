@@ -43,18 +43,23 @@
     changeImageScale(ImageScale.MAX);
   };
 
-  // Обработчики событий DOM
-  scaleControlSmallerElement.addEventListener('click', function () {
+  // Уменьшить размер изображения, если он не минимальный
+  var onScaleControlSmallerClick = function () {
     if (getCurrentImageScale() > ImageScale.MIN) {
       downImageScale();
     }
-  });
+  };
 
-  scaleControlBiggerElement.addEventListener('click', function () {
+  // Увеличить размер изображения, если он не максимальный
+  var onScaleControlBiggerClick = function () {
     if (getCurrentImageScale() < ImageScale.MAX) {
       upImageScale();
     }
-  });
+  };
+
+  // Регистрация обработчиков событий DOM
+  scaleControlSmallerElement.addEventListener('click', onScaleControlSmallerClick);
+  scaleControlBiggerElement.addEventListener('click', onScaleControlBiggerClick);
 
   // Экспорт
   window.scale = {

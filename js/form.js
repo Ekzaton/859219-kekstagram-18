@@ -38,23 +38,22 @@
     if (textHashtagsElement.validity.valid) {
       evt.preventDefault();
       window.backend.save(new FormData(imgUploadFormElement), onSaveSuccess, onSaveError);
+      imgUploadOverlayElement.classList.add('hidden');
     }
   };
 
-  // Успешная отправка
+  // Успешная отправка формы
   var onSaveSuccess = function () {
-    imgUploadOverlayElement.classList.add('hidden');
     imgUploadFormElement.reset();
     window.messages.showSuccessMessage();
   };
 
-  // Ошибка отправки
+  // Ошибка отправки формы
   var onSaveError = function () {
-    imgUploadOverlayElement.classList.add('hidden');
     window.messages.showErrorMessage();
   };
 
-  // Обработчики событий DOM
+  // Регистрация обработчиков событий DOM
   imgUploadInputElement.addEventListener('change', onImgUploadInputClick);
   textHashtagsElement.addEventListener('keydown', window.util.disableEscPress);
   textDescriptionElement.addEventListener('keydown', window.util.disableEscPress);

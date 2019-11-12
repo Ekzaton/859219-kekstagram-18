@@ -147,7 +147,7 @@
     document.removeEventListener('mouseup', onMouseUp);
   };
 
-  // Обработчики событий DOM
+  // Регистрация обработчиков событий DOM
   effectsListElement.addEventListener('click', function (evt) {
     onEffectsListClick(evt);
   });

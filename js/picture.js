@@ -8,6 +8,7 @@
   // Показать увеличенную фотографию
   var onPicturesItemClick = function (picture) {
     bigPictureElement.classList.remove('hidden');
+    document.body.classList.add('modal-open');
 
     bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
     bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
@@ -27,6 +28,7 @@
   // Скрыть увеличенную фотографию
   var onBigPictureCancelClick = function () {
     bigPictureElement.classList.add('hidden');
+    document.body.classList.remove('modal-open');
 
     bigPictureCancelElement.removeEventListener('click', onBigPictureCancelClick);
     document.removeEventListener('keydown', function (evt) {
