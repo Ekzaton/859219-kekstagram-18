@@ -54,7 +54,6 @@
   var effectLevelValueElement = document.querySelector('.effect-level__value');
   var effectLevelPinElement = document.querySelector('.effect-level__pin');
   var effectLevelDepthElement = document.querySelector('.effect-level__depth');
-  var effectsListElement = document.querySelector('.effects__list');
 
   // Установка положения ползунка
   var setPinPosition = function (pinPosition) {

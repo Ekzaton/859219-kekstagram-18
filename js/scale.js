@@ -11,8 +11,6 @@
   // Элементы DOM
   var imgUploadPreviewElement = document.querySelector('.img-upload__preview');
   var scaleControlValueElement = document.querySelector('.scale__control--value');
-  var scaleControlSmallerElement = document.querySelector('.scale__control--smaller');
-  var scaleControlBiggerElement = document.querySelector('.scale__control--bigger');
 
   // Получение текущего размера изображения
   var getCurrentImageScale = function () {
