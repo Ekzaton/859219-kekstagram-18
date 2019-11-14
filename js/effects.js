@@ -147,12 +147,10 @@
     document.removeEventListener('mouseup', onMouseUp);
   };
 
-  // Регистрация обработчиков событий DOM
-  effectsListElement.addEventListener('click', onEffectsListClick);
-  effectLevelPinElement.addEventListener('mousedown', onMouseDown);
-
   // Экспорт
   window.effects = {
-    drop: dropEffect
+    drop: dropEffect,
+    onListClick: onEffectsListClick,
+    onMouseDown: onMouseDown
   };
 })();

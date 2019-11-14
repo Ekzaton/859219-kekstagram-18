@@ -29,16 +29,23 @@
     if (hashtag[Hashtag.START_POSITION] !== '#') {
       textHashtagsElement.setCustomValidity(Message.START_POSITION);
       return false;
-    } else if (hashtag.length < Hashtag.MIN_LENGTH) {
+    }
+
+    if (hashtag.length < Hashtag.MIN_LENGTH) {
       textHashtagsElement.setCustomValidity(Message.MIN_LENGTH);
       return false;
-    } else if (hashtag.length > Hashtag.MAX_LENGTH) {
+    }
+
+    if (hashtag.length > Hashtag.MAX_LENGTH) {
       textHashtagsElement.setCustomValidity(Message.MAX_LENGTH + Hashtag.MAX_LENGTH + Message.MAX_LENGTH_ENDING);
       return false;
-    } else if (hashtag.indexOf('#', Hashtag.GAP) > 0) {
+    }
+
+    if (hashtag.indexOf('#', Hashtag.GAP) > 0) {
       textHashtagsElement.setCustomValidity(Message.GAP);
       return false;
     }
+
     return true;
   };
 
@@ -75,6 +82,8 @@
     }
   };
 
-  // Регистрация обработчиков событий DOM
-  textHashtagsElement.addEventListener('input', onHashtagsInput);
+  // Экспорт
+  window.validation = {
+    onHashtagsInput: onHashtagsInput
+  };
 })();

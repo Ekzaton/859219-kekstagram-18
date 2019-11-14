@@ -57,12 +57,10 @@
     }
   };
 
-  // Регистрация обработчиков событий DOM
-  scaleControlSmallerElement.addEventListener('click', onScaleControlSmallerClick);
-  scaleControlBiggerElement.addEventListener('click', onScaleControlBiggerClick);
-
   // Экспорт
   window.scale = {
-    drop: dropImageScale
+    drop: dropImageScale,
+    onSmallerClick: onScaleControlSmallerClick,
+    onBiggerClick: onScaleControlBiggerClick
   };
 })();

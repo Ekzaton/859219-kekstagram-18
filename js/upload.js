@@ -9,7 +9,7 @@
   var imgUploadPreviewImgElement = document.querySelector('.img-upload__preview img');
 
   // Загрузка фотографии
-  var onImgUploadInputChange = function () {
+  var uploadPicture = function () {
     var file = imgUploadInputElement.files[0];
     var fileName = file.name.toLowerCase();
 
@@ -28,6 +28,8 @@
     }
   };
 
-  // Регистрация обработчиков событий DOM
-  imgUploadInputElement.addEventListener('change', onImgUploadInputChange);
+  // Экспорт
+  window.upload = {
+    picture: uploadPicture
+  };
 })();
