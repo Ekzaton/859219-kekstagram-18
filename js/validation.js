@@ -56,19 +56,14 @@
     if (textHashtagsElement.value !== '') {
       var hashtags = textHashtagsElement.value.toLowerCase().split(' ');
 
-      for (var i = 0; i < hashtags.length; i++) {
-        var isValid = validateHashtag(hashtags[i]);
+      hashtags.forEach(function (hashtag, index) {
+        validateHashtag(hashtag);
 
-        if (!isValid) {
-          break;
-        }
-        var nextHashtagSymbol = i + 1;
-
-        if (hashtags.indexOf(hashtags[i], nextHashtagSymbol) > 0) {
+        var nextHashtagSymbol = index + 1;
+        if (hashtags.indexOf(hashtag, nextHashtagSymbol) > 0) {
           textHashtagsElement.setCustomValidity(Message.NO_REPEAT);
-          break;
         }
-      }
+      });
 
       if (hashtags.length > Hashtag.MAX_COUNT) {
         textHashtagsElement.setCustomValidity(Message.MAX_COUNT + Hashtag.MAX_COUNT + Message.MAX_COUNT_ENDING);
