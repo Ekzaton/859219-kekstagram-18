@@ -14,7 +14,7 @@
     picturesItem.querySelector('.picture__comments').textContent = picture.comments.length;
 
     picturesItem.addEventListener('click', function () {
-      window.picture.onPicturesItemClick(picture);
+      window.picture.onItemClick(picture);
     });
 
     return picturesItem;
@@ -32,6 +32,6 @@
 
   // Экспорт
   window.gallery = {
-    createPicturesList: createPicturesList
+    createList: createPicturesList
   };
 })();

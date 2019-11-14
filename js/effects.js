@@ -148,16 +148,11 @@
   };
 
   // Регистрация обработчиков событий DOM
-  effectsListElement.addEventListener('click', function (evt) {
-    onEffectsListClick(evt);
-  });
-
-  effectLevelPinElement.addEventListener('mousedown', function (evt) {
-    onMouseDown(evt);
-  });
+  effectsListElement.addEventListener('click', onEffectsListClick);
+  effectLevelPinElement.addEventListener('mousedown', onMouseDown);
 
   // Экспорт
   window.effects = {
-    dropEffect: dropEffect
+    drop: dropEffect
   };
 })();

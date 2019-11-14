@@ -15,29 +15,30 @@
     bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
     bigPictureElement.querySelector('.social__caption').textContent = picture.description;
 
-    window.comments.createSocialCommentsList(picture.comments);
+    window.comments.createList(picture.comments);
 
     bigPictureElement.querySelector('.social__comment-count').classList.add('visually-hidden');
 
     bigPictureCancelElement.addEventListener('click', onBigPictureCancelClick);
-    document.addEventListener('keydown', function (evt) {
-      window.util.onEscPress(evt, onBigPictureCancelClick);
-    });
+    document.addEventListener('keydown', onEscPress);
   };
 
-  // Скрыть увеличенную фотографию
+  // Скрыть увеличенную фотографию по клику
   var onBigPictureCancelClick = function () {
     bigPictureElement.classList.add('hidden');
     document.body.classList.remove('modal-open');
 
     bigPictureCancelElement.removeEventListener('click', onBigPictureCancelClick);
-    document.removeEventListener('keydown', function (evt) {
-      window.util.onEscPress(evt, onBigPictureCancelClick);
-    });
+    document.removeEventListener('keydown', onEscPress);
+  };
+
+  // Скрыть увеличенную фотографию по ESC
+  var onEscPress = function (evt) {
+    window.util.onEscPress(evt, onBigPictureCancelClick);
   };
 
   // Экспорт
   window.picture = {
-    onPicturesItemClick: onPicturesItemClick
+    onItemClick: onPicturesItemClick
   };
 })();

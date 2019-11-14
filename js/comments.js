@@ -60,6 +60,6 @@
 
   // Экспорт
   window.comments = {
-    createSocialCommentsList: createSocialCommentsList
+    createList: createSocialCommentsList
   };
 })();

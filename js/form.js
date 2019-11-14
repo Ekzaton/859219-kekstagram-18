@@ -13,24 +13,25 @@
   // Открытие формы
   var onImgUploadInputClick = function () {
     imgUploadOverlayElement.classList.remove('hidden');
-    window.effects.dropEffect();
-    window.scale.dropImageScale();
+    window.effects.drop();
+    window.scale.drop();
 
     imgUploadCancelElement.addEventListener('click', onImgUploadCancelClick);
-    document.addEventListener('keydown', function (evt) {
-      window.util.onEscPress(evt, onImgUploadCancelClick);
-    });
+    document.addEventListener('keydown', onEscPress);
   };
 
-  // Закрытие формы
+  // Закрытие формы по клику
   var onImgUploadCancelClick = function () {
     imgUploadOverlayElement.classList.add('hidden');
     imgUploadFormElement.reset();
 
     imgUploadCancelElement.removeEventListener('click', onImgUploadCancelClick);
-    document.removeEventListener('keydown', function (evt) {
-      window.util.onEscPress(evt, onImgUploadCancelClick);
-    });
+    document.removeEventListener('keydown', onEscPress);
+  };
+
+  // Закрытие формы по ESC
+  var onEscPress = function (evt) {
+    window.util.onEscPress(evt, onImgUploadCancelClick);
   };
 
   // Отправка формы
@@ -39,18 +40,21 @@
       evt.preventDefault();
       window.backend.save(new FormData(imgUploadFormElement), onSaveSuccess, onSaveError);
       imgUploadOverlayElement.classList.add('hidden');
+
+      imgUploadCancelElement.removeEventListener('click', onImgUploadCancelClick);
+      document.removeEventListener('keydown', onEscPress);
     }
   };
 
   // Успешная отправка формы
   var onSaveSuccess = function () {
     imgUploadFormElement.reset();
-    window.messages.showSuccessMessage();
+    window.messages.showSuccess();
   };
 
   // Ошибка отправки формы
   var onSaveError = function () {
-    window.messages.showErrorMessage();
+    window.messages.showError();
   };
 
   // Регистрация обработчиков событий DOM

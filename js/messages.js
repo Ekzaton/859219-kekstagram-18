@@ -19,14 +19,14 @@
 
     successMessageElement.addEventListener('click', onSuccessMessageClick);
     successButtonElement.addEventListener('click', onSuccessButtonClick);
-    document.addEventListener('keydown', function (evt) {
-      window.util.onEscPress(evt, closeSuccessMessage);
-    });
+    document.addEventListener('keydown', onEscPressSuccess);
   };
 
   // Закрыть окно сообщения об успехе
   var closeSuccessMessage = function () {
     successMessageElement.remove();
+
+    document.removeEventListener('keydown', onEscPressSuccess);
   };
 
   // Закрыть окно сообщения об успехе по клику на произвольную область экрана
@@ -43,15 +43,18 @@
     }
   };
 
+  // Закрыть окно сообщения об успехе по ESC
+  var onEscPressSuccess = function (evt) {
+    window.util.onEscPress(evt, closeSuccessMessage);
+  };
+
   // Показать окно сообщения об ошибке
   var showErrorMessage = function () {
     mainElement.insertAdjacentElement('afterbegin', errorMessageElement);
 
     errorMessageElement.addEventListener('click', onErrorMessageClick);
     errorButtonsElement.addEventListener('click', onErrorButtonsClick);
-    document.addEventListener('keydown', function (evt) {
-      window.util.onEscPress(evt, closeErrorMessage);
-    });
+    document.addEventListener('keydown', onEscPressError);
   };
 
   // Показать окно сообщения об ошибке загрузки данных с кодом ответа
@@ -61,14 +64,14 @@
     mainElement.insertAdjacentElement('afterbegin', errorMessageElement);
 
     errorMessageElement.addEventListener('click', onErrorMessageClick);
-    document.addEventListener('keydown', function (evt) {
-      window.util.onEscPress(evt, closeErrorMessage);
-    });
+    document.addEventListener('keydown', onEscPressError);
   };
 
   // Закрыть окно сообщения об ошибке
   var closeErrorMessage = function () {
     errorMessageElement.remove();
+
+    document.removeEventListener('keydown', onEscPressError);
   };
 
   // Закрыть окно сообщения об ошибке по клику на произвольную область экрана
@@ -85,10 +88,15 @@
     }
   };
 
+  // Закрыть окно сообщения об ошибке по ESC
+  var onEscPressError = function (evt) {
+    window.util.onEscPress(evt, closeErrorMessage);
+  };
+
   // Экспорт
   window.messages = {
-    showSuccessMessage: showSuccessMessage,
-    showErrorMessage: showErrorMessage,
-    showLoadErrorMessage: showLoadErrorMessage
+    showSuccess: showSuccessMessage,
+    showError: showErrorMessage,
+    showLoadError: showLoadErrorMessage
   };
 })();

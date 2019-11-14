@@ -23,7 +23,7 @@
 
   // Получение списка случайных фотографий
   var getRandomPictures = function (pictureData) {
-    var randomPictures = window.util.getRandomShuffleArray(pictureData.slice()).slice(0, RANDOM_PICTURES);
+    var randomPictures = window.util.shuffleArray(pictureData.slice()).slice(0, RANDOM_PICTURES);
     return randomPictures;
   };
 
@@ -52,20 +52,20 @@
     imgFiltersElement.classList.remove('img-filters--inactive');
     filterPopularElement.addEventListener('click', window.util.debounce(function () {
       onFilterClick(filterPopularElement);
-      window.gallery.createPicturesList(pictureData);
+      window.gallery.createList(pictureData);
     }));
     filterRandomElement.addEventListener('click', window.util.debounce(function () {
       onFilterClick(filterRandomElement);
-      window.gallery.createPicturesList(getRandomPictures(pictureData));
+      window.gallery.createList(getRandomPictures(pictureData));
     }));
     filterDiscussedElement.addEventListener('click', window.util.debounce(function () {
       onFilterClick(filterDiscussedElement);
-      window.gallery.createPicturesList(getDiscussedPictures(pictureData));
+      window.gallery.createList(getDiscussedPictures(pictureData));
     }));
   };
 
   // Экспорт
   window.filters = {
-    setFilter: setFilter
+    set: setFilter
   };
 })();

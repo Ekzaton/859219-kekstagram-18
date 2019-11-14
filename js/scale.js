@@ -23,7 +23,7 @@
   var changeImageScale = function (newScaleValue) {
     scaleControlValueElement.value = newScaleValue + '%';
     imgUploadPreviewElement.style = 'transform: scale(' + (newScaleValue / 100) + ')';
-    window.effects.dropEffect();
+    window.effects.drop();
   };
 
   // Уменьшение размера изображения
@@ -63,6 +63,6 @@
 
   // Экспорт
   window.scale = {
-    dropImageScale: dropImageScale
+    drop: dropImageScale
   };
 })();
