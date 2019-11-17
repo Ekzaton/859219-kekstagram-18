@@ -11,6 +11,7 @@
   var socialCommentsItemElement = document.querySelector('.social__comment');
   var socialCommentsListElement = document.querySelector('.social__comments');
   var socialCommentsLoaderElement = document.querySelector('.social__comments-loader');
+  var socialCommentCountElement = document.querySelector('.social__comment-count');
 
   // Получение комментария
   var getSocialCommentsItem = function (comment) {
@@ -32,13 +33,17 @@
   // Разделение комментариев
   var splitUpComments = function (comments) {
     var socialCommentsList = document.createDocumentFragment();
+    var openedComments = document.querySelectorAll('.social__comment');
+
     if (comments.length <= COMMENTS_LIMIT) {
       comments.forEach(function (comment) {
         socialCommentsList.appendChild(getSocialCommentsItem(comment));
       });
+      socialCommentCountElement.textContent =
+          (comments.length + openedComments.length) + ' из ' +
+          (comments.length + openedComments.length) + ' комментариев';
       socialCommentsLoaderElement.classList.add('visually-hidden');
       socialCommentsLoaderElement.removeEventListener('click', onSocialCommentsLoaderClick);
-
     } else {
       comments.forEach(function (comment, index) {
         if (index < COMMENTS_LIMIT) {
@@ -46,6 +51,9 @@
         }
       });
       hiddenComments = comments.slice(COMMENTS_LIMIT);
+      socialCommentCountElement.textContent =
+          (comments.length - hiddenComments.length + openedComments.length) + ' из ' +
+          (comments.length + openedComments.length) + ' комментариев';
       socialCommentsLoaderElement.classList.remove('visually-hidden');
       socialCommentsLoaderElement.addEventListener('click', onSocialCommentsLoaderClick);
     }

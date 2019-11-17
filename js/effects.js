@@ -51,6 +51,7 @@
   // Элементы DOM
   var imgUploadPreviewElement = document.querySelector('.img-upload__preview');
   var imgUploadEffectLevelElement = document.querySelector('.img-upload__effect-level');
+  var effectsRadioCheckedElement = document.querySelector('.effects__radio:checked');
   var effectLevelValueElement = document.querySelector('.effect-level__value');
   var effectLevelPinElement = document.querySelector('.effect-level__pin');
   var effectLevelDepthElement = document.querySelector('.effect-level__depth');
@@ -90,21 +91,20 @@
 
   // Выбор эффекта
   var onEffectsListClick = function (evt) {
-    var currentEffect = evt.target.closest('input');
+    effectsRadioCheckedElement = evt.target.closest('input');
 
-    if (currentEffect) {
+    if (effectsRadioCheckedElement) {
       dropEffect();
       imgUploadPreviewElement.classList.add(
-          Effect[currentEffect.value.toUpperCase()].htmlClass
+          Effect[effectsRadioCheckedElement.value.toUpperCase()].htmlClass
       );
-      hideEffectLevelElement(currentEffect);
+      hideEffectLevelElement(effectsRadioCheckedElement);
     }
   };
 
   // Нажатие мыши
   var onMouseDown = function (evt) {
     evt.preventDefault();
-
     start = evt.clientX;
 
     document.addEventListener('mousemove', onMouseMove);
@@ -115,7 +115,6 @@
   var onMouseMove = function (evt) {
     evt.preventDefault();
 
-    var currentEffect = document.querySelector('input[type="radio"]:checked');
     var translation = start - evt.clientX;
     var position = effectLevelPinElement.offsetLeft - translation;
     start = evt.clientX;
@@ -130,10 +129,10 @@
 
     setPinPosition(position);
     setEffectLevel(
-        Effect[currentEffect.value.toUpperCase()].maxValue,
-        Effect[currentEffect.value.toUpperCase()].minValue,
-        Effect[currentEffect.value.toUpperCase()].cssFilter,
-        Effect[currentEffect.value.toUpperCase()].measureUnit,
+        Effect[effectsRadioCheckedElement.value.toUpperCase()].maxValue,
+        Effect[effectsRadioCheckedElement.value.toUpperCase()].minValue,
+        Effect[effectsRadioCheckedElement.value.toUpperCase()].cssFilter,
+        Effect[effectsRadioCheckedElement.value.toUpperCase()].measureUnit,
         position
     );
   };

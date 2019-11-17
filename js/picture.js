@@ -12,12 +12,9 @@
 
     bigPictureElement.querySelector('.big-picture__img img').src = picture.url;
     bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
-    bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
     bigPictureElement.querySelector('.social__caption').textContent = picture.description;
 
     window.comments.createList(picture.comments);
-
-    bigPictureElement.querySelector('.social__comment-count').classList.add('visually-hidden');
 
     bigPictureCancelElement.addEventListener('click', onBigPictureCancelClick);
     document.addEventListener('keydown', onEscPress);

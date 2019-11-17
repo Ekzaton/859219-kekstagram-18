@@ -6,9 +6,8 @@
 
   // Элементы DOM
   var imgFiltersElement = document.querySelector('.img-filters');
-  var filterPopularElement = document.querySelector('#filter-popular');
-  var filterRandomElement = document.querySelector('#filter-random');
-  var filterDiscussedElement = document.querySelector('#filter-discussed');
+  var imgFiltersFormElement = document.querySelector('.img-filters__form');
+  var imgFiltersButtonActiveElement = document.querySelector('.img-filters__button--active');
 
   // Сброс списка фотографий
   var dropPicturesList = function () {
@@ -36,13 +35,19 @@
   };
 
   // Выбор фильтра изображений
-  var onFiltersClick = function (evt) {
-    var activeFilter = imgFiltersElement.querySelector('.img-filters__button--active');
-
+  var selectFilter = function (evt, pictureData) {
     if (evt.target.className === 'img-filters__button') {
-      activeFilter.classList.remove('img-filters__button--active');
-      dropPicturesList();
-      evt.target.classList.add('img-filters__button--active');
+      imgFiltersButtonActiveElement.classList.remove('img-filters__button--active');
+      imgFiltersButtonActiveElement = evt.target;
+      imgFiltersButtonActiveElement.classList.add('img-filters__button--active');
+    }
+
+    if (evt.target.id === 'filter-popular') {
+      window.gallery.createList(pictureData);
+    } else if (evt.target.id === 'filter-random') {
+      window.gallery.createList(getRandomPictures(pictureData));
+    } else if (evt.target.id === 'filter-discussed') {
+      window.gallery.createList(getDiscussedPictures(pictureData));
     }
   };
 
@@ -50,18 +55,11 @@
   var setFilter = function (pictureData) {
     imgFiltersElement.classList.remove('img-filters--inactive');
 
-    filterPopularElement.addEventListener('click', window.util.debounce(function () {
-      window.gallery.createList(pictureData);
-    }));
-    filterRandomElement.addEventListener('click', window.util.debounce(function () {
-      window.gallery.createList(getRandomPictures(pictureData));
-    }));
-    filterDiscussedElement.addEventListener('click', window.util.debounce(function () {
-      window.gallery.createList(getDiscussedPictures(pictureData));
+    imgFiltersFormElement.addEventListener('click', window.util.debounce(function (evt) {
+      dropPicturesList();
+      selectFilter(evt, pictureData);
     }));
   };
-
-  imgFiltersElement.addEventListener('click', onFiltersClick);
 
   // Экспорт
   window.filters = {

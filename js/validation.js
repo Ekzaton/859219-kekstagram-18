@@ -68,12 +68,12 @@
       if (hashtags.length > Hashtag.MAX_COUNT) {
         textHashtagsElement.setCustomValidity(Message.MAX_COUNT + Hashtag.MAX_COUNT + Message.MAX_COUNT_ENDING);
       }
+    }
 
-      if (textHashtagsElement.validity.valid) {
-        textHashtagsElement.removeAttribute('style');
-      } else {
-        textHashtagsElement.style.border = '3px solid red';
-      }
+    if (textHashtagsElement.validity.valid) {
+      textHashtagsElement.removeAttribute('style');
+    } else {
+      textHashtagsElement.style.border = '3px solid red';
     }
   };
 

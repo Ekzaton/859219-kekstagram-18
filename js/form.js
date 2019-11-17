@@ -38,16 +38,7 @@
     imgUploadOverlayElement.classList.add('hidden');
     imgUploadFormElement.reset();
 
-    scaleControlSmallerElement.removeEventListener('click', window.scale.onSmallerClick);
-    scaleControlBiggerElement.removeEventListener('click', window.scale.onBiggerClick);
-    effectsListElement.removeEventListener('click', window.effects.onListClick);
-    effectLevelPinElement.removeEventListener('mousedown', window.effects.onMouseDown);
-    textHashtagsElement.removeEventListener('input', window.validation.onHashtagsInput);
-    textHashtagsElement.removeEventListener('keydown', window.util.disableEscPress);
-    textDescriptionElement.removeEventListener('keydown', window.util.disableEscPress);
-    imgUploadSubmitElement.removeEventListener('click', onImgUploadSubmitClick);
-    imgUploadCancelElement.removeEventListener('click', onImgUploadCancelClick);
-    document.removeEventListener('keydown', onEscPress);
+    removeFormListeners();
   };
 
   // Закрытие формы по ESC
@@ -62,17 +53,22 @@
       imgUploadOverlayElement.classList.add('hidden');
       window.backend.save(new FormData(imgUploadFormElement), onSaveSuccess, onSaveError);
 
-      scaleControlSmallerElement.removeEventListener('click', window.scale.onSmallerClick);
-      scaleControlBiggerElement.removeEventListener('click', window.scale.onBiggerClick);
-      effectsListElement.removeEventListener('click', window.effects.onListClick);
-      effectLevelPinElement.removeEventListener('mousedown', window.effects.onMouseDown);
-      textHashtagsElement.removeEventListener('input', window.validation.onHashtagsInput);
-      textHashtagsElement.removeEventListener('keydown', window.util.disableEscPress);
-      textDescriptionElement.removeEventListener('keydown', window.util.disableEscPress);
-      imgUploadCancelElement.removeEventListener('click', onImgUploadCancelClick);
-      imgUploadSubmitElement.removeEventListener('click', onImgUploadSubmitClick);
-      document.removeEventListener('keydown', onEscPress);
+      removeFormListeners();
     }
+  };
+
+  // Удаление обработчиков формы
+  var removeFormListeners = function () {
+    scaleControlSmallerElement.removeEventListener('click', window.scale.onSmallerClick);
+    scaleControlBiggerElement.removeEventListener('click', window.scale.onBiggerClick);
+    effectsListElement.removeEventListener('click', window.effects.onListClick);
+    effectLevelPinElement.removeEventListener('mousedown', window.effects.onMouseDown);
+    textHashtagsElement.removeEventListener('input', window.validation.onHashtagsInput);
+    textHashtagsElement.removeEventListener('keydown', window.util.disableEscPress);
+    textDescriptionElement.removeEventListener('keydown', window.util.disableEscPress);
+    imgUploadCancelElement.removeEventListener('click', onImgUploadCancelClick);
+    imgUploadSubmitElement.removeEventListener('click', onImgUploadSubmitClick);
+    document.removeEventListener('keydown', onEscPress);
   };
 
   // Успешная отправка формы
