@@ -3,8 +3,8 @@
 (function () {
   // Константы
   var Url = {
-    LOAD: 'https://js.dump.academy/kekstagram/data',
-    SAVE: 'https://js.dump.academy/kekstagram'
+    LOAD: 'https://javascript.pages.academy/kekstagram/data',
+    SAVE: 'https://javascript.pages.academy/kekstagram'
   };
 
   var CONNECTION_TIMEOUT = 10000;
